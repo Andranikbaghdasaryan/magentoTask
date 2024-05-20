@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Sales::sales" title="Sales" sortOrder="10">
+                    <resource id="AndMage_CheckoutSuccess::checkoutSuccess" title="Checkout Success" sortOrder="10">
+                        <resource id="AndMage_CheckoutSuccess::success_info" title="Additional Info" sortOrder="10" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

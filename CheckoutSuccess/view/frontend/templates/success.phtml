@@ -1,0 +1,58 @@
+<?php
+
+declare(strict_types=1);
+
+use AndMage\CheckoutSuccess\Block\Success;
+
+/**
+ * @var Success $block
+ */
+$order = $block->getOrder();
+?>
+<div class="order-success-info">
+    <p><strong><?= __('Order Number:') ?> </strong> <?= '#' . $order->getIncrementId(); ?></p>
+    <p><strong><?= __('Order Date:') ?> </strong> <?= $block->formatDate($order->getCreatedAt(), \IntlDateFormatter::LONG); ?></p>
+    <div class="order-address">
+        <div class="address-title">
+            <span class="title"> <?= __('Address Information:'); ?></span>
+        </div>
+        <div class="shipping-content">
+            <div class="billing-address">
+                <h3><?= __('Billing Address') ?></h3>
+                <div><?= $block->formatAddress($order->getBillingAddress()); ?></div>
+            </div>
+            <div class="shipping-address">
+                <h3><?= __('Shipping Address'); ?></h3>
+                <div><?= $block->formatAddress($order->getShippingAddress()); ?></div>
+            </div>
+        </div>
+    </div>
+    <p><strong> <?= __('Payment Method: '); ?> </strong> <?= $order->getPayment()->getMethodInstance()->getTitle(); ?></p>
+    <p><strong> <?= __('Shipping Method: '); ?> </strong> <?= $order->getShippingDescription(); ?> </p>
+    <p class="ordered-items"> <?= __('Items Ordered'); ?></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th><?= __('Product'); ?></th>
+                <th><?= __('Sku'); ?></th>
+                <th><?= __('Price'); ?></th>
+                <th><?= __('Qty'); ?></th>
+                <th><?= __('Subtotal'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($order->getAllVisibleItems() as $item): ?>
+                <tr>
+                    <td><?= $item->getName(); ?></td>
+                    <td><?= $item->getSku(); ?></td>
+                    <td><?= $block->formatPrice($item->getPrice()); ?></td>
+                    <td><?= $item->getQtyOrdered(); ?></td>
+                    <td><?= $block->formatPrice($item->getRowTotal()); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div class="message-content">
+        <p><?= $block->getSuccessMessage(); ?></p>
+    </div>
+</div>

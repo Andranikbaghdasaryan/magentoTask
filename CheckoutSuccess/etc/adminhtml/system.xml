@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="checkout" translate="label" type="text" sortOrder="305" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Checkout</label>
+            <tab>sales</tab>
+            <resource>AndMage_CheckoutSuccess::checkoutSuccess</resource>
+            <group id="success_info" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Additional Info</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="0" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Show Success Info</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="success_message" translate="label" type="editor" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Success Message</label>
+                    <frontend_model>AndMage\CheckoutSuccess\Block\Adminhtml\System\Config\Form\Field\Wysiwyg</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
