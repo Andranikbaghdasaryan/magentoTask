@@ -12,7 +12,9 @@ use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Customer\Model\Address\Config as AddressConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Sales\Model\Order\Item;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Catalog\Helper\Image as ImageHelper;
 
 /**
  * Class Success
@@ -33,6 +35,7 @@ class Success extends Template
      * @param CheckoutSession $checkoutSession
      * @param AddressConfig $addressConfig
      * @param ScopeConfigInterface $scopeConfig
+     * @param ImageHelper $imageHelper
      * @param array $data
      */
     public function __construct(
@@ -41,12 +44,14 @@ class Success extends Template
         CheckoutSession          $checkoutSession,
         AddressConfig            $addressConfig,
         ScopeConfigInterface     $scopeConfig,
+        ImageHelper              $imageHelper,
         array                    $data = []
     ) {
         $this->orderRepository = $orderRepository;
         $this->checkoutSession = $checkoutSession;
         $this->addressConfig = $addressConfig;
         $this->scopeConfig = $scopeConfig;
+        $this->imageHelper = $imageHelper;
         parent::__construct($context, $data);
     }
 
@@ -110,5 +115,15 @@ class Success extends Template
     public function formatPrice(float|String $price): string
     {
         return $this->getOrder()->formatPrice($price);
+    }
+
+    /**
+     * @param Item $item
+     * @return string
+     */
+    public function getProductImageUrl(Item $item): string
+    {
+        $product = $item->getProduct();
+        return $this->imageHelper->init($product, 'product_thumbnail_image')->getUrl();
     }
 }

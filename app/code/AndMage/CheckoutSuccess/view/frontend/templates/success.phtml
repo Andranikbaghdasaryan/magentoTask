@@ -38,6 +38,7 @@ $order = $block->getOrder();
                 <th><?= __('Price'); ?></th>
                 <th><?= __('Qty'); ?></th>
                 <th><?= __('Subtotal'); ?></th>
+                <th><?= __('Image'); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +49,9 @@ $order = $block->getOrder();
                     <td><?= $block->formatPrice($item->getPrice()); ?></td>
                     <td><?= $item->getQtyOrdered(); ?></td>
                     <td><?= $block->formatPrice($item->getRowTotal()); ?></td>
+                    <td>
+                        <img src="<?= $block->getProductImageUrl($item); ?>" alt="<?= $item->getName(); ?>" />
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
